@@ -1,4 +1,7 @@
+import json
+
 import requests
+import xmltodict
 
 request = """<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:api="http://cps.huawei.com/cpsinterface/api_requestmgr" xmlns:req="http://cps.huawei.com/cpsinterface/request" xmlns:com="http://cps.huawei.com/cpsinterface/common">
    <soapenv:Header/>
@@ -52,11 +55,14 @@ request = """<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/en
 </soapenv:Envelope>"""
 
 def print_hi(name):
-    headers = {'Content-Type': 'application/xml; charset=UTF-8'}
+    headers = {'Content-Type': 'text/xml; charset=UTF-8'}
     url = 'http://172.30.10.3:8081/payment/services/APIRequestMgrService'
     response = requests.post(url=url, data=request, headers=headers)
-    print(response)
+    print(response.content)
 
+    decoded_response = response.content.decode('utf-8')
+    response_json = json.loads(json.dumps(xmltodict.parse(decoded_response)))
+    print(response_json)
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
