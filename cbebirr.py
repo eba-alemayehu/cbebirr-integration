@@ -1,5 +1,4 @@
 import json
-
 import requests
 import xmltodict
 
@@ -90,3 +89,7 @@ def push_ussd(thirdPartyID,
     response_json = json.loads(json.dumps(xmltodict.parse(decoded_response)))
     print(response_json)
     return response_json
+
+
+def parse_xml_to_dict(xml):
+    return json.dumps(xmltodict.parse(xml))["soapenv:Envelope"]["soapenv:Body"]["res:Body"]
