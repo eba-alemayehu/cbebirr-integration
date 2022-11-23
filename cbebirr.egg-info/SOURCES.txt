@@ -1,0 +1,9 @@
+README.md
+setup.py
+cbebirr/__init__.py
+cbebirr/cbebirr.py
+cbebirr.egg-info/PKG-INFO
+cbebirr.egg-info/SOURCES.txt
+cbebirr.egg-info/dependency_links.txt
+cbebirr.egg-info/requires.txt
+cbebirr.egg-info/top_level.txt

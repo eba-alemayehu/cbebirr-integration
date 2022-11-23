@@ -1,0 +1,38 @@
+Metadata-Version: 2.1
+Name: cbebirr
+Version: 0.0.5
+Summary: CBEBirr integration
+Author: Eba Alemayehu
+Author-email: <ebaalemayhu3@gmail.com>
+Keywords: python,cbebirr,payment,ethiopia,CBE,Commercial bank of Ethiopia
+Classifier: Development Status :: 1 - Planning
+Classifier: Intended Audience :: Developers
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: Unix
+Classifier: Operating System :: MacOS :: MacOS X
+Classifier: Operating System :: Microsoft :: Windows
+Description-Content-Type: text/markdown
+
+
+# CBEBirr integration
+
+```python
+import cbebirr
+
+if __name__ == '__main__':
+    cbebirr.push_ussd(
+        thirdPartyID='THIRD_PARTY_ID', 
+        primaryPartyIdentifier='PHONE',
+        receiverPartyIdentifier='CUSTOMER_ID',
+        intiatorIdentifier='IDENTIFIER',
+        securityCredential='SECURITY_CREDENTIAL',
+        posDeviceID='POS_DEVICE_ID', 
+        shortCode='SHORT_CODE', 
+        amount='10', 
+        password='PASSWORD',
+        timestamp='TIME_STAMP',
+        resultURL='RETURN_URL', )
+
+    # See PyCharm help at https://www.jetbrains.com/help/pycharm/
+
+```
