@@ -105,26 +105,27 @@ def refund(thirdPartyID,
               currency='ETB', url="http://172.30.10.3:8081/payment/services/APIRequestMgrService"):
     request = """
     <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:api="http://cps.huawei.com/cpsinterface/api_requestmgr" xmlns:req="http://cps.huawei.com/cpsinterface/request" xmlns:com="http://cps.huawei.com/cpsinterface/common">
-       <soapenv:Header/>
-       <soapenv:Body>
-          <api:Request>
-             <req:Header>
-                <req:Version>1.0</req:Version>
-                <req:CommandID>InitTrans_Salary Payment</req:CommandID>
-                <req:Caller>
-                   <req:CallerType>2</req:CallerType>
-                   <req:ThirdPartyID>{thirdPartyID}</req:ThirdPartyID>
-                   <req:Password>{password}=</req:Password>
-                   <req:ResultURL>{resultURL}</req:ResultURL>
-                </req:Caller>
-                <req:KeyOwner>1</req:KeyOwner>
-                <req:Timestamp>{timestamp}</req:Timestamp>
-             </req:Header>
-             <req:Body>
-                <req:Identity>
-                   <req:Initiator>
-                      <req:IdentifierType>11</req:IdentifierType>
-                      <req:Identifier>{intiatorIdentifier}</req:Identifier>
+    <soapenv:Header/>
+    <soapenv:Body>
+      <api:Request>
+        <req:Header>
+          <req:Version>1.0</req:Version>
+          <req:CommandID>InitTrans_Salary Payment</req:CommandID>
+          <req:OriginatorConversationID>426494503</req:OriginatorConversationID>
+          <req:Caller>
+            <req:CallerType>2</req:CallerType>
+             <req:ThirdPartyID>{thirdPartyID}</req:ThirdPartyID>
+             <req:Password>{password}=</req:Password>
+             <req:ResultURL>{resultURL}</req:ResultURL>
+          </req:Caller>
+          <req:KeyOwner>1</req:KeyOwner>
+          <req:Timestamp>{timestamp}</req:Timestamp>
+        </req:Header>
+        <req:Body>
+          <req:Identity>
+            <req:Initiator>
+                <req:IdentifierType>11</req:IdentifierType>
+                    <req:Identifier>{intiatorIdentifier}</req:Identifier>
                       <req:SecurityCredential>{securityCredential}</req:SecurityCredential>
                       <req:ShortCode>{shortCode}</req:ShortCode>
                    </req:Initiator>
@@ -132,18 +133,16 @@ def refund(thirdPartyID,
                       <req:IdentifierType>4</req:IdentifierType>
                       <req:Identifier>{receiverPartyIdentifier}</req:Identifier>
                    </req:ReceiverParty>
-                </req:Identity>
-                <req:TransactionRequest>
-                   <req:Parameters>
-                      <req:Amount>{amount}</req:Amount>
-                      <req:Currency>{currency}</req:Currency>
-                      <req:ReasonType>Cash IN</req:ReasonType>
-                   </req:Parameters>
-                </req:TransactionRequest>
-                <req:Remark>Test</req:Remark>
-             </req:Body>
-          </api:Request>
-       </soapenv:Body>
+          </req:Identity>
+          <req:TransactionRequest>
+            <req:Parameters>
+                <req:Amount>{amount}</req:Amount>
+                <req:Currency>{currency}</req:Currency>
+            </req:Parameters>
+          </req:TransactionRequest>
+        </req:Body>
+      </api:Request>
+    </soapenv:Body>
     </soapenv:Envelope>
     """.format(
         thirdPartyID=thirdPartyID,
