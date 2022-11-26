@@ -131,7 +131,7 @@ def refund(thirdPartyID,
                       <req:ShortCode>{shortCode}</req:ShortCode>
                    </req:Initiator>
                    <req:ReceiverParty>
-                      <req:IdentifierType>4</req:IdentifierType>
+                      <req:IdentifierType>1</req:IdentifierType>
                       <req:Identifier>{phone}</req:Identifier>
                    </req:ReceiverParty>
           </req:Identity>
