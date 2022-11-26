@@ -92,17 +92,18 @@ def push_ussd(thirdPartyID,
 
 
 def refund(thirdPartyID,
-              password,
-              resultURL,
-              timestamp,
-              intiatorIdentifier,
-              securityCredential,
-              shortCode,
-              primaryPartyIdentifier,
-              receiverPartyIdentifier,
-              amount,
-              posDeviceID,
-              currency='ETB', url="http://172.30.10.3:8081/payment/services/APIRequestMgrService"):
+           password,
+           resultURL,
+           timestamp,
+           intiatorIdentifier,
+           securityCredential,
+           shortCode,
+           primaryPartyIdentifier,
+           receiverPartyIdentifier,
+           amount,
+           posDeviceID,
+           phone,
+           currency='ETB', url="http://172.30.10.3:8081/payment/services/APIRequestMgrService"):
     request = """
     <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:api="http://cps.huawei.com/cpsinterface/api_requestmgr" xmlns:req="http://cps.huawei.com/cpsinterface/request" xmlns:com="http://cps.huawei.com/cpsinterface/common">
     <soapenv:Header/>
@@ -131,7 +132,7 @@ def refund(thirdPartyID,
                    </req:Initiator>
                    <req:ReceiverParty>
                       <req:IdentifierType>4</req:IdentifierType>
-                      <req:Identifier>{receiverPartyIdentifier}</req:Identifier>
+                      <req:Identifier>{phone}</req:Identifier>
                    </req:ReceiverParty>
           </req:Identity>
           <req:TransactionRequest>
@@ -143,7 +144,7 @@ def refund(thirdPartyID,
         </req:Body>
       </api:Request>
     </soapenv:Body>
-    </soapenv:Envelope>
+    </soapenv:Envelope> 
     """.format(
         thirdPartyID=thirdPartyID,
         password=password,
@@ -155,7 +156,8 @@ def refund(thirdPartyID,
         primaryPartyIdentifier=primaryPartyIdentifier,
         receiverPartyIdentifier=receiverPartyIdentifier,
         amount=amount,
-        currency=currency
+        currency=currency,
+        phone=phone
     )
     print(request)
     headers = {'Content-Type': 'text/xml; charset=UTF-8'}
