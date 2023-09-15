@@ -172,3 +172,23 @@ def refund(thirdPartyID,
 
 def parse_xml_to_dict(xml):
     return json.dumps(xmltodict.parse(xml))["soapenv:Envelope"]["soapenv:Body"]["res:Body"]
+
+
+def cbebirrplus_payment(tillCode, amount, transactionId, transactionTime, companyName, key, token, callBackURL):
+    payload = {
+        "tillCode", tillCode,
+        "amount", amount,
+        "transactionId", transactionId,
+        "transactionTime", transactionTime,
+        "companyName", companyName,
+        "key", key ,
+        "token", token,
+        "callBackURL", callBackURL
+    }
+    sorted_payload = dict(sorted(payload.items()))
+    signiture = sha256(urlencode(sorted_payload).encode('utf-8')).hexdigest()
+    del payload['key']
+    payload['signature'] = signiture
+    print(payload)
+    response = requests.post("https://cbebirrpaymentgateway.cbe.com.et:8888/auth/pay", json=payload)
+    return response
