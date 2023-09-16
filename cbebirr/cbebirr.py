@@ -187,7 +187,7 @@ def cbebirrplus_payment(tillCode, amount, transactionId, transactionTime, compan
         "callBackURL": callBackURL
     }
 
-    sorted_payload = dict(OrderedDict(sorted(x.items())))
+    sorted_payload = dict(OrderedDict(sorted(payload.items())))
     signiture = sha256(urlencode(sorted_payload).encode('utf-8')).hexdigest()
     del payload['key']
     payload['signature'] = signiture
