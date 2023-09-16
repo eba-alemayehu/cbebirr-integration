@@ -1,6 +1,7 @@
 import json
 import requests
 import xmltodict
+from collections import OrderedDict
 
 
 def push_ussd(thirdPartyID,
@@ -176,16 +177,16 @@ def parse_xml_to_dict(xml):
 
 def cbebirrplus_payment(tillCode, amount, transactionId, transactionTime, companyName, key, token, callBackURL):
     payload = {
-        "tillCode", tillCode,
-        "amount", amount,
-        "transactionId", transactionId,
-        "transactionTime", transactionTime,
-        "companyName", companyName,
-        "key", key ,
-        "token", token,
-        "callBackURL", callBackURL
+        "tillCode": tillCode,
+        "amount": amount,
+        "transactionId": transactionId,
+        "transactionTime": transactionTime,
+        "companyName": companyName,
+        "key": key ,
+        "token": token,
+        "callBackURL": callBackURL
     }
-    sorted_payload = dict(sorted(payload.items()))
+    sorted_payload = dict(OrderedDict(sorted(x.items())))
     signiture = sha256(urlencode(sorted_payload).encode('utf-8')).hexdigest()
     del payload['key']
     payload['signature'] = signiture
