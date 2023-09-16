@@ -181,7 +181,7 @@ def cbebirrplus_payment(tillCode, amount, transactionId, transactionTime, compan
         "tillCode": tillCode,
         "amount": amount,
         "transactionId": transactionId,
-        "transactionTime": transactionTime,
+        "transactionTime": str(transactionTime),
         "companyName": companyName,
         "key": key ,
         "token": token,
