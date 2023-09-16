@@ -3,6 +3,7 @@ import requests
 import xmltodict
 from collections import OrderedDict
 from hashlib import sha256
+from urllib.parse import urlencode
 
 def push_ussd(thirdPartyID,
               password,
