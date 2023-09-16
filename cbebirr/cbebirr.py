@@ -2,7 +2,7 @@ import json
 import requests
 import xmltodict
 from collections import OrderedDict
-
+from hashlib import sha256
 
 def push_ussd(thirdPartyID,
               password,
