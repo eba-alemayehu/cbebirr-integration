@@ -1,4 +1,4 @@
-import json
+import json, os
 import requests
 import xmltodict
 from collections import OrderedDict
@@ -178,20 +178,64 @@ def parse_xml_to_dict(xml):
 
 def cbebirrplus_payment(tillCode, amount, transactionId, transactionTime, companyName, key, token, callBackURL):
     payload = {
-        "tillCode": tillCode,
-        "amount": amount,
-        "transactionId": transactionId,
+        "tillCode": str(tillCode),
+        "amount": str(amount),
+        "transactionId": str(transactionId),
         "transactionTime": str(transactionTime),
         "companyName": companyName,
         "key": key ,
-        "token": token,
+        "token": 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZSI6IjI1MTkyOTA3MTQ4NyIsImV4cCI6MTY5NzQ5MjA4OH0.zRBQVQ91WckpvzWga0c5srdHi0WDmziZaVtPiCWGT_A',
         "callBackURL": callBackURL
     }
+    # payload = {
+    #     "tillCode": "1234",
+    #     "amount": "1.00",
+    #     "transactionId": "70098",
+    #     "transactionTime": "2023-09-16 13: 54: 55.057044+00: 00",
+    #     "companyName": "Guzo",
+    #     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZSI6IjI1MTkyOTA3MTQ4NyIsImV4cCI6MTY5ODU5NzM3MX0.RjNZJ6AkulDWlJ2eRireeRCFxZbdUpfDcPS9QurJFTo",
+    #     "callBackURL": "https://google.com",
+    #     "signature": "967a46315b90cd09961a1253f7edb216914fb7389cdfd946df1bd629b1c41ddd"
+    # }
 
     sorted_payload = dict(OrderedDict(sorted(payload.items())))
-    signiture = sha256(urlencode(sorted_payload).encode('utf-8')).hexdigest()
+    print(sorted_payload)
+    hash_list = []
+    for x, y in sorted_payload.items():
+        hash_list.append(x +'=' +y)
+    hash_str = '&'.join(hash_list)
+    # hash_str = urlencode(sorted_payload)
+    print(hash_str)
+    signiture = sha256(hash_str.encode('utf-8')).hexdigest()
     del payload['key']
     payload['signature'] = signiture
     print(payload)
-    response = requests.post("https://cbebirrpaymentgateway.cbe.com.et:8888/auth/pay", json=payload)
-    return response
+
+    # url = "https://8c50-196-191-60-207.ngrok-free.app/pay"
+    url = "https://cbebirrpaymentgateway.cbe.com.et:8888/auth/pay"
+
+    payload = json.dumps(payload)
+    # {
+    #     "tillCode": "1234",
+    #     "amount": "1.00",
+    #     "transactionId": "70098",
+    #     "transactionTime": "2023-09-16 13: 54: 55.057044+00: 00",
+    #     "companyName": "Guzo",
+    #     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZSI6IjI1MTkyOTA3MTQ4NyIsImV4cCI6MTY5ODU5NzM3MX0.RjNZJ6AkulDWlJ2eRireeRCFxZbdUpfDcPS9QurJFTo",
+    #     "callBackURL": "https://google.com",
+    #     "signature": "967a46315b90cd09961a1253f7edb216914fb7389cdfd946df1bd629b1c41ddd"
+    # }
+    headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZSI6IjI1MTkyOTA3MTQ4NyIsImV4cCI6MTY5NzQ5MjA4OH0.zRBQVQ91WckpvzWga0c5srdHi0WDmziZaVtPiCWGT_A'
+    }
+
+    response = requests.request("POST", url, headers=headers, data=payload)
+
+    print(response.text)
+    print("Response: ", response.text)
+    print("Status: ", response.status_code)
+    if response.status_code == 200 or response.status_code == 201:
+        return json.loads(response.content)
+    else:
+        return None
