@@ -184,7 +184,7 @@ def cbebirrplus_payment(tillCode, amount, transactionId, transactionTime, compan
         "transactionTime": str(transactionTime),
         "companyName": companyName,
         "key": key ,
-        "token": 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZSI6IjI1MTkyOTA3MTQ4NyIsImV4cCI6MTY5NzQ5MjA4OH0.zRBQVQ91WckpvzWga0c5srdHi0WDmziZaVtPiCWGT_A',
+        "token": token,
         "callBackURL": callBackURL
     }
     # payload = {
