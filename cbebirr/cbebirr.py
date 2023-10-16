@@ -227,7 +227,7 @@ def cbebirrplus_payment(tillCode, amount, transactionId, transactionTime, compan
     # }
     headers = {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZSI6IjI1MTkyOTA3MTQ4NyIsImV4cCI6MTY5NzQ5MjA4OH0.zRBQVQ91WckpvzWga0c5srdHi0WDmziZaVtPiCWGT_A'
+        'Authorization': 'Bearer {}'.format(token)
     }
 
     response = requests.request("POST", url, headers=headers, data=payload)
